@@ -1,5 +1,5 @@
-{{- if not .Values.global.JWTSecret }}
-{{- fail ".Values.global.JWTSecret is required" }}
+{{- if not .Values.secrets.JWTSecret }}
+{{- fail ".Values.secrets.JWTSecret is required" }}
 {{- end }}
 
 {{- $endpoints := uniq .Values.global.executionEndpoints -}}

@@ -2,17 +2,20 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-global:
-  ## Eth2 network ID
-  ##
-  network: mainnet
+secrets: 
 
   ## JSON Web Token (JWT) authentication is used to secure the communication
   ## between the beacon node and execution client. You can generate a JWT using
   ## a command line tool, for example:
   ## openssl rand -hex 32 > token.txt
   ##
-  JWTSecret: ""
+  JWTSecret: "vault:secret/data/accounts/aws#AWS_SECRET_ACCESS_KEY" 
+
+global:
+  ## Eth2 network ID
+  ##
+  network: mainnet
+
 
   ## Server endpoints for an execution layer jwt authenticated HTTP JSON-RPC connection.
   ## Uses the same endpoint to populate the deposit cache.

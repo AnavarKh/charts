@@ -20,6 +20,9 @@ spec:
       labels:
         {{- include "common.labels.matchLabels" $root | nindent 8 }}
         replicaID: {{ $i | quote }}
+    annotation: 
+      vault.security.banzaicloud.io/vault-addr: "https://vault:8200"
+      vault.security.banzaicloud.io/vault-tls-secret: "vault-tls"
     spec:
     {{- with (concat $root.Values.imagePullSecrets $root.Values.global.imagePullSecrets) }}
       imagePullSecrets:
@@ -127,7 +130,7 @@ spec:
               --suggested-fee-recipient={{ $root.Values.merge.feeRecipient }}
             {{- end }}
               --execution-endpoint={{ index $root.Values.global.executionEndpoints $i }}
-              --execution-jwt=/secret/jwtsecret
+              --execution-jwt=$Vault_JWT_SECRET
               --datadir=/data
               --network={{ $root.Values.global.network }}
               --disable-upnp
@@ -156,6 +159,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: Vault_JWT_SECRET
+              value: {{ $root.Values.secrets.JWTSecret }}
           ports:
             - containerPort: {{ $root.Values.http.port }}
               protocol: TCP
