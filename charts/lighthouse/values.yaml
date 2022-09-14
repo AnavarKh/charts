@@ -21,7 +21,7 @@ global:
   ## Uses the same endpoint to populate the deposit cache.
   ## A separate Statefulset will be created for each specified address
   ##
-  executionEndpoints: []
+  executionEndpoints: ["http://localhost:8551"]
 
   ## Credentials to fetch images from private registry
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
